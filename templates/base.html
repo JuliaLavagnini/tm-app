@@ -21,10 +21,9 @@
   </head>
 
   <body>
-    <header>
-      <h1>{% block header %}Task Manager{% endblock %}</h1>
-      {% block navigation %}{% endblock %}
-    </header>
+    <h1>Test</h1>
+   {% block content %}
+   {% endblock %}
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   </body>
 </html>
