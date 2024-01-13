@@ -4,8 +4,8 @@ from flask import (
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-from pymongo import MongoClient
 from werkzeug.security import generate_password_hash, check_password_hash
+from pymongo import MongoClient
 if os.path.exists("env.py"):
     import env
 
@@ -28,7 +28,7 @@ def get_tasks():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-        if request.method == "POST":
+    if request.method == "POST":
         # check if username already exists in db
         existing_user = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()})
