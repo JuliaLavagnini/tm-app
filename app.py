@@ -3,6 +3,7 @@ from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
@@ -16,6 +17,27 @@ app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
+
+login_manager = LoginManager(app)
+
+
+class User(UserMixin):
+    def __init__(self, user_id, username, password, team_name):
+        self.id = user_id
+        self.username = username
+        self.password = password
+        self.team_name = team_name
+
+    @staticmethod
+    def get(user_id):
+        # Implement this method to retrieve a user by ID
+        pass
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    # Implement this function to load a user by ID
+    return User.get(user_id)
 
 
 @app.route("/")
@@ -36,7 +58,7 @@ def search():
 def register():
     if request.method == "POST":
         # Get form data directly from the request object
-        username = request.form.get("username").lower()
+        username = request.form.get("username").title()
         team_name = request.form.get("team_name")
         password = request.form.get("password")
 
@@ -66,33 +88,20 @@ def register():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        # check if username exists in db
-        existing_user = mongo.db.users.find_one(
-            {"username": request.form.get("username").lower()})
+        # Check username and password (replace with your authentication logic)
+        user = User.get(request.form.get("username"))
+        if user and check_password(request.form.get("password"), user.password):
+            login_user(user)
+            flash("Logged in successfully.")
+            return redirect(url_for("profile", username=user.username))
 
-        if existing_user:
-            # ensure hashed password matches user input
-            if check_password_hash(
-                    existing_user["password"], request.form.get("password")):
-                session["user"] = request.form.get("username").lower()
-                flash("Welcome, {}".format(
-                    request.form.get("username")))
-                return redirect(url_for(
-                    "profile", username=session["user"]))
-            else:
-                # invalid password match
-                flash("Incorrect Username and/or Password")
-                return redirect(url_for("login"))
-
-        else:
-            # username doesn't exist
-            flash("Incorrect Username and/or Password")
-            return redirect(url_for("login"))
+        flash("Invalid username or password.")
 
     return render_template("login.html")
 
 
 @app.route("/profile/<username>", methods=["GET", "POST"])
+@login_required
 def profile(username):
     if session.get("user"):
         # Fetch tasks for the specified user from the database
@@ -115,11 +124,11 @@ def profile(username):
 
 
 @app.route("/logout")
+@login_required
 def logout():
-    # remove user from session cookie
-    flash("You have been logged out")
-    session.pop("user")
-    return redirect(url_for("login"))
+    logout_user()
+    flash("You have been logged out.")
+    return redirect(url_for("get_tasks"))
 
 
 @app.route("/add_task", methods=["GET", "POST"])
@@ -167,13 +176,6 @@ def delete_task(task_id):
     mongo.db.tasks.remove({"_id": ObjectId(task_id)})
     flash("Task Successfully Deleted")
     return redirect(url_for("get_tasks"))
-
-
-@app.route("/delete_category/<category_id>")
-def delete_category(category_id):
-    mongo.db.categories.remove({"_id": ObjectId(category_id)})
-    flash("Category Successfully Deleted")
-    return redirect(url_for("get_categories"))
 
 
 if __name__ == "__main__":
