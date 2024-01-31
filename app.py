@@ -75,7 +75,10 @@ def login():
             if check_password_hash(
                     existing_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username").lower()
-                flash("Welcome, {}".format(request.form.get("username")))
+                flash("Welcome, {}".format(
+                    request.form.get("username")))
+                return redirect(url_for(
+                    "profile", username=session["user"]))
             else:
                 # invalid password match
                 flash("Incorrect Username and/or Password")
@@ -106,16 +109,17 @@ def profile(username):
 
         return render_template("profile.html", username=username,
                                user_tasks=user_tasks,
-                               team_members=team_members,
-                               team=team_name)
+                               team_members=team_members, team=team_name)
 
     return redirect(url_for("login"))
 
 
 @app.route("/logout")
 def logout():
-    session.clear()  # Clear all session data
-    return redirect(url_for('login'))
+    # remove user from session cookie
+    flash("You have been logged out")
+    session.pop("user")
+    return redirect(url_for("login"))
 
 
 @app.route("/add_task", methods=["GET", "POST"])

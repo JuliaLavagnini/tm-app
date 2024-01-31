@@ -3,9 +3,42 @@
 <div class="row">
   <div class="col s12 m8 offset-m2">
     <div class="card-panel">
-      <h3 class="center-align light-blue-text text-darken-4">
-        {{ username }}'s Profile
-      </h3>
+      <p id="date"></p>
+      <h2 class="light-blue-text text-darken-4">Hello, {{ username }}.</h2>
+      <!-- add task button -->
+      <button class="btn-large light-blue darken-1 text-shadow">
+        <a href="{{ url_for('add_task') }}">Add New Task</a>
+      </button>
+      <!-- my task section -->
+      <h3>My Tasks</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th>Description</th>
+            <th>Due</th>
+            <th>Team</th>
+            <th>Priority</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for task in user_tasks %}
+          <tr>
+            <td>{{ task.task_name }}</td>
+            <td>{{ task.description }}</td>
+            <td>{{ task.due }}</td>
+            <td>{{ task.team }}</td>
+            <td>{{ task.priority }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <h2>Meet Your Team {{ team }}</h2>
+      <ul>
+        {% for member in team_members %}
+        <li>{{ member.username }}</li>
+        {% endfor %}
+      </ul>
     </div>
   </div>
 </div>
