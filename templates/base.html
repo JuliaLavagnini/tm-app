@@ -19,6 +19,9 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
       type="text/css"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.37/moment-timezone-with-data-1970-2030.min.js"></script>
+
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/style.css') }}"
@@ -47,12 +50,7 @@
                 >Profile</a
               >
             </li>
-            <li><a href="{{ url_for('add_task') }}">New Task</a></li>
-            {% if session.user|lower == "admin"|lower %}
-            <li>
-              <a href="{{ url_for('get_categories') }}">Manage Categories</a>
-            </li>
-            {% endif %}
+            <li><a href="#">New Task</a></li>
             <li><a href="{{ url_for('logout') }}">Log Out</a></li>
             {% else %}
             <li><a href="{{ url_for('login') }}">Log In</a></li>
@@ -61,7 +59,6 @@
           </ul>
         </div>
       </nav>
-
       <!-- mobile sidenav -->
       <ul class="sidenav" id="mobile-demo">
         <li>
@@ -76,10 +73,7 @@
             >Profile</a
           >
         </li>
-        <li><a href="{{ url_for('add_task') }}">New Task</a></li>
-        {% if session.user|lower == "admin"|lower %}
-        <li><a href="{{ url_for('get_categories') }}">Manage Categories</a></li>
-        {% endif %}
+        <li><a href="#">New Task</a></li>
         <li><a href="{{ url_for('logout') }}">Log Out</a></li>
         {% else %}
         <li><a href="{{ url_for('login') }}">Log In</a></li>
@@ -90,12 +84,13 @@
 
     <section>
       <!-- flash messages -->
-      {% with messages = get_flashed_messages() %} {% if messages %} {% for
-      message in messages %}
-      <div class="row flashes">
-        <h4 class="light-blue lighten-4 center-align">{{ message }}</h4>
-      </div>
-      {% endfor %} {% endif %} {% endwith %}
+      {% with messages = get_flashed_messages() %} {% if messages %}
+      <ul class="flashes">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %} {% endwith %}
     </section>
 
     <main class="container">{% block content %} {% endblock %}</main>
