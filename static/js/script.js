@@ -108,3 +108,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
+/*
+    Date to profile.html file
+*/
+let todayDate = moment().format("dddd D MMMM YYYY");
+let dateElement = document.querySelector("#date");
+dateElement.innerHTML = todayDate;
