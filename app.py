@@ -17,17 +17,6 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
-tasks = {
-    "upcoming": [
-        {"name": "Task 1", "deadline": "04/10/2023"},
-        {"name": "Task 2", "deadline": "04/15/2023"}
-    ],
-    "completed": [
-        {"name": "Completed Task 1", "deadline": "03/30/2023"},
-        {"name": "Completed Task 2", "deadline": "03/25/2023"}
-    ]
-}
-
 
 @app.route("/")
 @app.route("/get_tasks")
@@ -46,23 +35,29 @@ def search():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
+        # Get form data directly from the request object
+        username = request.form.get("username").lower()
+        team_name = request.form.get("team_name")
+        password = request.form.get("password")
+
         # check if username already exists in db
-        existing_user = mongo.db.users.find_one(
-            {"username": request.form.get("username").lower()})
+        existing_user = mongo.db.users.find_one({"username": username})
 
         if existing_user:
             flash("Username already exists")
             return redirect(url_for("register"))
 
+        # Create a new user document
         register = {
-            "username": request.form.get("username").lower(),
-            "password": generate_password_hash(request.form.get("password"))
+            "username": username,
+            "password": generate_password_hash(password),
+            "team_name": team_name
         }
+        # Insert the new user into the 'users' collection
         mongo.db.users.insert_one(register)
 
-        # put the new user into 'session' cookie
-        session["user"] = request.form.get("username").lower()
-        flash("Registration Successful!")
+        # Set the new user into the 'session' cookie
+        session["user"] = username
         return redirect(url_for("profile", username=session["user"]))
 
     return render_template("register.html")
@@ -80,10 +75,7 @@ def login():
             if check_password_hash(
                     existing_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username").lower()
-                flash("Welcome, {}".format(
-                    request.form.get("username")))
-                return redirect(url_for(
-                    "profile", username=session["user"]))
+                flash("Welcome, {}".format(request.form.get("username")))
             else:
                 # invalid password match
                 flash("Incorrect Username and/or Password")
@@ -99,22 +91,31 @@ def login():
 
 @app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
-    # grab the session user's username from db
-    username = mongo.db.users.find_one(
-        {"username": session["user"]})["username"]
+    if session.get("user"):
+        # Fetch tasks for the specified user from the database
+        user_tasks = mongo.db.tasks.find({"created_by": username})
 
-    if session["user"]:
-        return render_template("profile.html", username=username)
+        # Fetch team name for the current user
+        user_data = mongo.db.users.find_one({"username": username})
+        # Ensure that team_name is in your user data structure
+        team_name = user_data.get("team_name", "")
+
+        # Fetch team members with the same team_name excluding the current user
+        team_members = mongo.db.users.find(
+            {"team_name": team_name, "username": {"$ne": username}})
+
+        return render_template("profile.html", username=username,
+                               user_tasks=user_tasks,
+                               team_members=team_members,
+                               team=team_name)
 
     return redirect(url_for("login"))
 
 
 @app.route("/logout")
 def logout():
-    # remove user from session cookie
-    flash("You have been logged out")
-    session.pop("user")
-    return redirect(url_for("login"))
+    session.clear()  # Clear all session data
+    return redirect(url_for('login'))
 
 
 @app.route("/add_task", methods=["GET", "POST"])
@@ -162,39 +163,6 @@ def delete_task(task_id):
     mongo.db.tasks.remove({"_id": ObjectId(task_id)})
     flash("Task Successfully Deleted")
     return redirect(url_for("get_tasks"))
-
-
-@app.route("/get_categories")
-def get_categories():
-    categories = list(mongo.db.categories.find().sort("category_name", 1))
-    return render_template("categories.html", categories=categories)
-
-
-@app.route("/add_category", methods=["GET", "POST"])
-def add_category():
-    if request.method == "POST":
-        category = {
-            "category_name": request.form.get("category_name")
-        }
-        mongo.db.categories.insert_one(category)
-        flash("New Category Added")
-        return redirect(url_for("get_categories"))
-
-    return render_template("add_category.html")
-
-
-@app.route("/edit_category/<category_id>", methods=["GET", "POST"])
-def edit_category(category_id):
-    if request.method == "POST":
-        submit = {
-            "category_name": request.form.get("category_name")
-        }
-        mongo.db.categories.update({"_id": ObjectId(category_id)}, submit)
-        flash("Category Successfully Updated")
-        return redirect(url_for("get_categories"))
-
-    category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
-    return render_template("edit_category.html", category=category)
 
 
 @app.route("/delete_category/<category_id>")
