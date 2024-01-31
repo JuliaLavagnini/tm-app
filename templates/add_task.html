@@ -50,9 +50,38 @@
       </div>
     </div>
     <!-- priority selector -->
-    <div class="row"></div>
+    <div class="row">
+      <div class="input-field col s12">
+        <select
+          class="validate"
+          name="priority_degree"
+          id="priority_degree"
+          required
+        >
+          <option value="" disabled selected>Priority</option>
+          {% for priority in priorities %}
+          <option value="{{priority.priority_degree}}">
+            {{priority.priority_degree}}
+          </option>
+          {% endfor %}
+        </select>
+        <label for="priority_degree">Priority</label>
+      </div>
+    </div>
     <!-- team selector -->
-    <div class="row"></div>
+    <div class="row">
+      <div class="row">
+        <div class="input-field col s12">
+          <select class="validate" name="team_name" id="team_name" required>
+            <option value="" disabled selected>Select your team</option>
+            {% for team in teams %}
+            <option value="{{team.team_name}}">{{team.team_name}}</option>
+            {% endfor %}
+          </select>
+          <label for="team_name">Team</label>
+        </div>
+      </div>
+    </div>
     <!-- submit button -->
     <div class="row">
       <div class="col s12 center-align">
