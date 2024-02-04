@@ -3,7 +3,6 @@ from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
-from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
@@ -17,27 +16,6 @@ app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
-
-login_manager = LoginManager(app)
-
-
-class User(UserMixin):
-    def __init__(self, user_id, username, password, team_name):
-        self.id = user_id
-        self.username = username
-        self.password = password
-        self.team_name = team_name
-
-    @staticmethod
-    def get(user_id):
-        # Implement this method to retrieve a user by ID
-        pass
-
-
-@login_manager.user_loader
-def load_user(user_id):
-    # Implement this function to load a user by ID
-    return User.get(user_id)
 
 
 @app.route("/")
@@ -59,7 +37,7 @@ def register():
     if request.method == "POST":
         # Get form data directly from the request object
         username = request.form.get("username").title()
-        team_name = request.form.get("team_name")
+        team_name = request.form.get("team_name").title()
         password = request.form.get("password")
 
         # check if username already exists in db
@@ -85,23 +63,33 @@ def register():
     return render_template("register.html")
 
 
-@app.route("/login", methods=["GET", "POST"])
-def login():
+# user sign-in function
+@app.route("/sign_in", methods=["GET", "POST"])
+def sign_in():
     if request.method == "POST":
-        # Check username and password (replace with your authentication logic)
-        user = User.get(request.form.get("username"))
-        if user and check_password(request.form.get("password"), user.password):
-            login_user(user)
-            flash("Logged in successfully.")
-            return redirect(url_for("profile", username=user.username))
-
-        flash("Invalid username or password.")
-
-    return render_template("login.html")
+        # check if username exists in db
+        existing_user = mongo.db.users.find_one(
+            {"username": request.form.get("username").title()})
+        if existing_user:
+            # ensure hashed password matches user input
+            if check_password_hash(
+                    existing_user["password"], request.form.get("password")):
+                session["user"] = request.form.get("username").title()
+                flash("Login Successful!")
+                return redirect(
+                    url_for("profile", username=session["user"]))
+            else:
+                # invalid password match
+                flash("Incorrect Username and/or Password")
+                return redirect(url_for("sign_in"))
+        else:
+            # username doesn't exist
+            flash("Incorrect Username and/or Password")
+            return redirect(url_for("sign_in"))
+    return render_template("sign_in.html")
 
 
 @app.route("/profile/<username>", methods=["GET", "POST"])
-@login_required
 def profile(username):
     if session.get("user"):
         # Fetch tasks for the specified user from the database
@@ -120,15 +108,15 @@ def profile(username):
                                user_tasks=user_tasks,
                                team_members=team_members, team=team_name)
 
-    return redirect(url_for("login"))
+    return redirect(url_for("sign_in"))
 
 
-@app.route("/logout")
-@login_required
-def logout():
-    logout_user()
-    flash("You have been logged out.")
-    return redirect(url_for("get_tasks"))
+@app.route("/sign_out")
+def sign_out():
+    # remove user from session cookie
+    flash("You have been logged out")
+    session.pop("user")
+    return redirect(url_for("sign_in"))
 
 
 @app.route("/add_task", methods=["GET", "POST"])
@@ -138,13 +126,12 @@ def add_task():
             "task_name": request.form.get("task_name"),
             "description": request.form.get("description"),
             "due": request.form.get("due"),
-            "team": request.form.get("team_name"),
+            "team_name": request.form.get("team_name"),
             "priority": request.form.get("priority_degree"),
             "created_by": session["user"]
         }
         mongo.db.tasks.insert_one(task)
-        flash("Task Successfully Added")
-        return redirect(url_for("get_tasks"))
+        return redirect(url_for("profile"))
 
     priorities = mongo.db.priorities.find().sort("priority_degree", 1)
     teams = mongo.db.teams.find().sort("team_name", 1)

@@ -6,7 +6,7 @@
   <form
     class="col s12 m8 offset-m2"
     method="POST"
-    action="{{ url_for('login') }}"
+    action="{{ url_for('sign_in') }}"
   >
     <div class="card-panel">
       <!-- username -->
@@ -19,7 +19,7 @@
             type="text"
             minlength="5"
             maxlength="15"
-            pattern="^[a-zA-Z0-9]{5,15}$"
+            pattern="^[a-zA-Z0-9\s]{5,15}$"
             class="validate"
             required
           />
