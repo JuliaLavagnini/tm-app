@@ -14,7 +14,6 @@
       <p>Email: {{ user_data['email'] }}</p>
     </div>
   </div>
-
   <!-- add task button -->
   <button class="btn-large" style="background-color: #ca5310">
     <a href="{{ url_for('add_task') }}" style="color: #fff">Add New Task</a>
@@ -27,8 +26,10 @@
         <th>Task</th>
         <th>Description</th>
         <th>Due</th>
-        <th>Team</th>
+        <th>Team Resposible</th>
         <th>Priority</th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -39,10 +40,59 @@
         <td>{{ task.due }}</td>
         <td>{{ task.team_name }}</td>
         <td>{{ task.priority }}</td>
+        <td>
+          <form
+            method="POST"
+            action="{{ url_for('mark_done', task_id=task._id) }}"
+          >
+            <button
+              type="submit"
+              class="btn-small"
+              style="background-color: #ca5310"
+            >
+              Done
+            </button>
+          </form>
+        </td>
+        <td>
+          <form
+            method="GET"
+            action="{{ url_for('edit_task', task_id=task._id) }}"
+          >
+            <button
+              type="submit"
+              class="btn-small"
+              style="background-color: #ca5310"
+            >
+              Edit
+            </button>
+          </form>
+        </td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
+  <!-- tasks completed -->
+  <h3>My Completed Tasks</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Task Name</th>
+        <th>Description</th>
+        <th>Team Resposible</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for task in user_done_tasks %}
+      <tr>
+        <td>{{ task.task_name }}</td>
+        <td>{{ task.description }}</td>
+        <td>{{ task.team_name}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <!-- team list -->
   <h2>Meet Your Team - <span>{{ team }}</span></h2>
   <ul class="members">
     {% for member in team_members %}

@@ -4,7 +4,7 @@
   <h1 id="greeting"></h1>
   <div class="row boxes">
     <div class="col s6 z-depth-2">
-      <p>Total Tasks</p>
+      <p>Total Upgoing Tasks</p>
       <p>{{ tasks|selectattr('task_name')|list|length }}</p>
     </div>
     <div class="col s6 z-depth-2">
@@ -19,9 +19,9 @@
         <th>Task</th>
         <th>Description</th>
         <th>Due</th>
-        <th>Team</th>
+        <th>Team Resposible</th>
         <th>Priority</th>
-        <th>Assign to</th>
+        <th>Assigned by</th>
       </tr>
     </thead>
     <tbody>
@@ -30,7 +30,7 @@
         <td>{{ task.task_name }}</td>
         <td>{{ task.description }}</td>
         <td>{{ task.due }}</td>
-        <td>{{ task.team }}</td>
+        <td>{{ task.team_name }}</td>
         <td>{{ task.priority }}</td>
         <td>{{ task.created_by }}</td>
       </tr>
@@ -42,14 +42,18 @@
     <thead>
       <tr>
         <th>Task Name</th>
-        <th>Deadline</th>
+        <th>Description</th>
+        <th>Team Resposible</th>
+        <th>Assigned by</th>
       </tr>
     </thead>
     <tbody>
-      {% for task in tasks.completed %}
+      {% for task in done_tasks %}
       <tr>
-        <td>{{ task.name }}</td>
-        <td>{{ task.deadline }}</td>
+        <td>{{ task.task_name }}</td>
+        <td>{{ task.description }}</td>
+        <td>{{ task.team_name}}</td>
+        <td>{{ task.created_by}}</td>
       </tr>
       {% endfor %}
     </tbody>

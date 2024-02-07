@@ -22,7 +22,8 @@ mongo = PyMongo(app)
 @app.route("/show_tasks")
 def show_tasks():
     tasks = list(mongo.db.tasks.find())
-    return render_template("home.html", tasks=tasks)
+    done_tasks = list(mongo.db.completed_tasks.find())
+    return render_template("home.html", tasks=tasks, done_tasks=done_tasks)
 
 
 @app.route("/search", methods=["GET", "POST"])
@@ -109,6 +110,10 @@ def profile(username):
         # Fetch tasks for the specified user from the database
         user_tasks = mongo.db.tasks.find({"created_by": username})
 
+        # Fetch done tasks for the specified user from the database
+        user_done_tasks = mongo.db.completed_tasks.find(
+            {"created_by": username})
+
         # Fetch team name for the current user
         user_data = mongo.db.users.find_one({"username": username})
         # Ensure that user_data is not None before trying to access its fields
@@ -129,6 +134,7 @@ def profile(username):
 
             return render_template("profile.html", username=username,
                                    user_tasks=user_tasks,
+                                   user_done_tasks=user_done_tasks,
                                    team_members=team_members,
                                    team=team_name,
                                    user_data=user_data)
@@ -171,28 +177,33 @@ def add_task():
 @app.route("/edit_task/<task_id>", methods=["GET", "POST"])
 def edit_task(task_id):
     if request.method == "POST":
-        is_urgent = "on" if request.form.get("is_urgent") else "off"
         submit = {
-            "category_name": request.form.get("category_name"),
             "task_name": request.form.get("task_name"),
-            "task_description": request.form.get("task_description"),
-            "is_urgent": is_urgent,
-            "due_date": request.form.get("due_date"),
+            "description": request.form.get("description"),
+            "due": request.form.get("due"),
+            "priority": request.form.get("priority_degree"),
+            "team_name": request.form.get("team_name"),
             "created_by": session["user"]
         }
-        mongo.db.tasks.update({"_id": ObjectId(task_id)}, submit)
-        flash("Task Successfully Updated")
+        filters = {"_id": ObjectId(task_id)}
+        mongo.db.tasks.update_one(filters, {"$set": submit})
+        return redirect(url_for("profile", username=session["user"]))
 
+    priorities = mongo.db.priorities.find().sort("priority_degree", 1)
+    teams = mongo.db.teams.find().sort("name", 1)
     task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
-    categories = mongo.db.categories.find().sort("category_name", 1)
-    return render_template("edit_task.html", task=task, categories=categories)
+    return render_template("edit_task.html", task=task, priorities=priorities, teams=teams)
 
 
-@app.route("/delete_task/<task_id>")
-def delete_task(task_id):
-    mongo.db.tasks.remove({"_id": ObjectId(task_id)})
-    flash("Task Successfully Deleted")
-    return redirect(url_for("show_tasks"))
+@app.route('/mark_done', methods=['POST'])
+def mark_done():
+    task_id = request.form['task_id']
+    task = mongo.db.tasks.find_one({'_id': ObjectId(task_id)})
+
+    if task:
+        mongo.db.completed_tasks.insert_one(task)
+        mongo.db.tasks.delete_one({'_id': ObjectId(task_id)})
+    return redirect(url_for('profile', username=session['user']))
 
 
 if __name__ == "__main__":
