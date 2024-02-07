@@ -94,7 +94,11 @@
     <div class="row">
       <div class="col s12 center-align">
         <!-- cancel button -->
-        <a href="#" class="btn-large" style="background-color: #ca5310">
+        <a
+          href="{{ url_for('profile', username=session['user']) }}"
+          class="btn-large"
+          style="background-color: #ca5310"
+        >
           Cancel
         </a>
         <button
