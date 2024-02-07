@@ -19,17 +19,17 @@ mongo = PyMongo(app)
 
 
 @app.route("/")
-@app.route("/get_tasks")
-def get_tasks():
+@app.route("/show_tasks")
+def show_tasks():
     tasks = list(mongo.db.tasks.find())
-    return render_template("tasks.html", tasks=tasks)
+    return render_template("home.html", tasks=tasks)
 
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
     query = request.form.get("query")
     tasks = list(mongo.db.tasks.find({"$text": {"$search": query}}))
-    return render_template("tasks.html", tasks=tasks)
+    return render_template("home.html", tasks=tasks)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -38,6 +38,8 @@ def register():
         # Get form data directly from the request object
         username = request.form.get("username").title()
         team_name = request.form.get("team_name").title()
+        team_position = request.form.get("team_position").title()
+        email = request.form.get("email")
         password = request.form.get("password")
 
         # check if username already exists in db
@@ -47,11 +49,24 @@ def register():
             flash("Username already exists")
             return redirect(url_for("register"))
 
+        # Check if team name already exists in db
+        existing_team = mongo.db.teams.find_one({"name": team_name})
+
+        if existing_team:
+            team_id = existing_team["_id"]
+        else:
+            # Create a new team document
+            team = {"name": team_name}
+            # Insert the new team into the 'teams' collection
+            team_id = mongo.db.teams.insert_one(team).inserted_id
+
         # Create a new user document
         register = {
             "username": username,
             "password": generate_password_hash(password),
-            "team_name": team_name
+            "team_id": team_id,
+            "team_position": team_position,
+            "email": email
         }
         # Insert the new user into the 'users' collection
         mongo.db.users.insert_one(register)
@@ -75,7 +90,6 @@ def sign_in():
             if check_password_hash(
                     existing_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username").title()
-                flash("Login Successful!")
                 return redirect(
                     url_for("profile", username=session["user"]))
             else:
@@ -162,7 +176,7 @@ def edit_task(task_id):
 def delete_task(task_id):
     mongo.db.tasks.remove({"_id": ObjectId(task_id)})
     flash("Task Successfully Deleted")
-    return redirect(url_for("get_tasks"))
+    return redirect(url_for("show_tasks"))
 
 
 if __name__ == "__main__":

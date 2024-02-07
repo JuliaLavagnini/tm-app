@@ -20,7 +20,6 @@
       type="text/css"
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.37/moment-timezone-with-data-1970-2030.min.js"></script>
 
     <link
       rel="stylesheet"
@@ -37,7 +36,7 @@
       <nav class="nav-extended transparent z-depth-0">
         <div class="nav-wrapper">
           <a href="{{ url_for('show_tasks') }}" class="brand-logo"
-            ><img src="/static/media/logo.jpg" alt=""
+            ><img src="/static/media/logo.jpg" alt="logo"
           /></a>
           <a href="#" data-target="mobile-demo" class="sidenav-trigger right"
             ><i class="fa fa-bars" style="color: #1d1e18"></i
@@ -79,7 +78,7 @@
     <section>
       <!-- flash messages -->
       {% with messages = get_flashed_messages() %} {% if messages %}
-      <ul class="flashes">
+      <ul class="flashes center-align">
         {% for message in messages %}
         <li>{{ message }}</li>
         {% endfor %}

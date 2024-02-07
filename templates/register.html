@@ -1,73 +1,100 @@
 {% extends "base.html" %} {% block content %}
 
-<h3 class="center-align">Register</h3>
-
 <div class="row">
+  <div class="center-align">
+    <h2>Sign Up</h2>
+    <p>Enter your details below to create your account</p>
+  </div>
   <form
     class="col s12 m8 offset-m2"
     method="POST"
     action="{{ url_for('register') }}"
   >
-    <div class="card-panel">
-      <!-- username -->
-      <div class="row">
-        <div class="input-field col s12">
-          <i class="fas fa-user-plus prefix light-blue-text text-darken-4"></i>
-          <input
-            id="username"
-            name="username"
-            type="text"
-            minlength="5"
-            maxlength="15"
-            pattern="^[a-zA-Z0-9\s]{5,15}$"
-            class="validate"
-            required
-          />
-          <label for="username">Username</label>
-        </div>
+    <div class="row">
+      <!-- position -->
+      <div class="input-field col s6">
+        <input
+          id="team_position"
+          name="team_position"
+          type="text"
+          minlength="5"
+          maxlength="15"
+          pattern="^[a-zA-Z0-9\s-]{5,15}$"
+          class="validate"
+          required
+        />
+        <label for="team_position">Team Position</label>
       </div>
       <!-- team -->
-      <div class="row">
-        <div class="input-field col s12">
-          <input
-            id="team_name"
-            name="team_name"
-            type="text"
-            minlength="5"
-            maxlength="15"
-            pattern="^[a-zA-Z0-9\s]{5,15}$"
-            class="validate"
-            required
-          />
-          <label for="team_name">Team</label>
-        </div>
+      <div class="input-field col s6">
+        <input
+          id="team_name"
+          name="team_name"
+          type="text"
+          minlength="5"
+          maxlength="15"
+          pattern="^[a-zA-Z0-9\s]{5,15}$"
+          class="validate"
+          required
+        />
+        <label for="team_name">Team</label>
       </div>
-      <!-- passowrd -->
-      <div class="row">
-        <div class="input-field col s12">
-          <i class="fas fa-user-lock prefix light-blue-text text-darken-4"></i>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            minlength="5"
-            maxlength="15"
-            pattern="^[a-zA-Z0-9]{5,15}$"
-            class="validate"
-            required
-          />
-          <label for="password">Password</label>
-        </div>
+    </div>
+    <div class="row">
+      <!-- username -->
+      <div class="input-field col s12">
+        <input
+          id="username"
+          name="username"
+          type="text"
+          minlength="5"
+          maxlength="15"
+          pattern="^[a-zA-Z0-9\s]{5,15}$"
+          class="validate"
+          required
+        />
+        <label for="username">Username</label>
       </div>
-      <!-- register -->
-      <div class="row">
-        <button
-          type="submit"
-          class="col s12 btn-large light-blue darken-4 text-shadow"
-        >
-          Register <i class="fas fa-sign-in-alt"></i>
-        </button>
+    </div>
+    <div class="row">
+      <!-- email -->
+      <div class="input-field col s12">
+        <input
+          id="email"
+          name="email"
+          type="email"
+          pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+          class="validate"
+          required
+        />
+        <label for="email">Email</label>
       </div>
+    </div>
+    <!-- passowrd -->
+    <div class="row">
+      <div class="input-field col s12">
+        <input
+          id="password"
+          name="password"
+          type="password"
+          minlength="5"
+          maxlength="15"
+          pattern="^[a-zA-Z0-9\s]{5,15}$"
+          class="validate"
+          required
+        />
+        <label for="password">Password</label>
+      </div>
+    </div>
+    <!-- register button-->
+    <div class="row">
+      <button
+        type="submit"
+        class="col s12 btn-large"
+        style="background-color: #ca5310"
+      >
+        Create Account
+      </button>
     </div>
   </form>
 </div>
@@ -76,9 +103,7 @@
   <div class="col s12">
     <p class="center-align">
       Already Registered?
-      <a href="{{ url_for('sign_in') }}" class="light-blue-text text-darken-4"
-        >Log In</a
-      >
+      <a href="{{ url_for('sign_in') }}" style="color: #ca5310">Sign In</a>
     </p>
   </div>
 </div>
