@@ -42,7 +42,7 @@
             ><i class="fa fa-bars" style="color: #1d1e18"></i
           ></a>
           <ul class="right hide-on-med-and-down">
-            {% if username %}
+            {% if session.user %}
             <li><a href="{{ url_for('show_tasks') }}">Home</a></li>
             <li>
               <a href="{{ url_for('profile', username=session['user']) }}">

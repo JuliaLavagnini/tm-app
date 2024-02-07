@@ -50,17 +50,17 @@ def register():
             return redirect(url_for("register"))
 
         # Check if team name already exists in db
-        existing_team = mongo.db.teams.find_one({"name": team_name})
+        team = mongo.db.teams.find_one({"name": team_name})
 
-        if existing_team:
-            team_id = existing_team["_id"]
-        else:
+        if team is None:
             # Create a new team document
             team = {"name": team_name}
             # Insert the new team into the 'teams' collection
             team_id = mongo.db.teams.insert_one(team).inserted_id
+        else:
+            # Use the existing team id as the team id for the user
+            team_id = team["_id"]
 
-        # Create a new user document
         register = {
             "username": username,
             "password": generate_password_hash(password),
@@ -111,16 +111,30 @@ def profile(username):
 
         # Fetch team name for the current user
         user_data = mongo.db.users.find_one({"username": username})
-        # Ensure that team_name is in your user data structure
-        team_name = user_data.get("team_name", "")
+        # Ensure that user_data is not None before trying to access its fields
+        if user_data is not None:
+            team_name = user_data.get("team_name", "")
 
-        # Fetch team members with the same team_name excluding the current user
-        team_members = mongo.db.users.find(
-            {"team_name": team_name, "username": {"$ne": username}})
+            # Fetch team document using team_id
+            team_data = mongo.db.teams.find_one(
+                {"_id": ObjectId(user_data["team_id"])})
 
-        return render_template("profile.html", username=username,
-                               user_tasks=user_tasks,
-                               team_members=team_members, team=team_name)
+            # Ensure that team_data is not None before trying to access its fields
+            if team_data is not None:
+                team_name = team_data["name"]
+
+            # Fetch team members with the same team_name excluding the current user
+            team_members = mongo.db.users.find(
+                {"team_name": team_name, "username": {"$ne": username}})
+
+            return render_template("profile.html", username=username,
+                                   user_tasks=user_tasks,
+                                   team_members=team_members,
+                                   team=team_name,
+                                   user_data=user_data)
+        else:
+            # User data not found, handle error
+            return "User data not found", 404
 
     return redirect(url_for("sign_in"))
 

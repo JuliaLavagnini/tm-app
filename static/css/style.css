@@ -99,3 +99,17 @@ th {
     padding: 80px 40px;
     margin: 0 auto;
 }
+
+span {
+    font-weight: 400;
+}
+
+.profile .date,
+.profile h2 {
+    margin-bottom: 5px;
+    margin-top: 7px;
+}
+
+.profile {
+    font-size: 20px;
+}
