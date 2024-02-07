@@ -35,9 +35,7 @@ def search():
                 {"task_name": {"$regex": query, "$options": "i"}},
                 {"description": {"$regex": query, "$options": "i"}},
                 {"team_name": {"$regex": query, "$options": "i"}},
-                {"created_by": {"$regex": query, "$options": "i"}},
-                {"priority": {"$regex": query, "$options": "i"}},
-                {"due": {"$regex": query, "$options": "i"}}]}))
+                {"created_by": {"$regex": query, "$options": "i"}}, {"priority": {"$regex": query, "$options": "i"}}]}))
             return render_template("home.html", tasks=tasks)
         else:
             flash("Please enter a valid search query.", "error")
@@ -208,15 +206,16 @@ def edit_task(task_id):
     return render_template("edit_task.html", task=task, priorities=priorities, teams=teams)
 
 
-@app.route('/mark_done', methods=['POST'])
-def mark_done():
-    task_id = request.form['task_id']
+@app.route("/mark_done/<task_id>")
+def mark_done(task_id):
     task = mongo.db.tasks.find_one({'_id': ObjectId(task_id)})
 
     if task:
         mongo.db.completed_tasks.insert_one(task)
         mongo.db.tasks.delete_one({'_id': ObjectId(task_id)})
-    return redirect(url_for('profile', username=session['user']))
+        return redirect(url_for('profile', username=session['user']))
+    else:
+        return 'Task not found', 404
 
 
 if __name__ == "__main__":

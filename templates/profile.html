@@ -15,7 +15,7 @@
     </div>
   </div>
   <!-- add task button -->
-  <button class="btn-large" style="background-color: #ffc9ad">
+  <button class="btn-large" style="background-color: #ca5310">
     <a href="{{ url_for('add_task') }}" style="color: #fff">Add New Task</a>
   </button>
   <!-- my task section -->
@@ -29,7 +29,6 @@
         <th>Team Resposible</th>
         <th>Priority</th>
         <th></th>
-        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -41,32 +40,23 @@
         <td>{{ task.team_name }}</td>
         <td>{{ task.priority }}</td>
         <td>
-          <form
-            method="POST"
-            action="{{ url_for('mark_done', task_id=task._id) }}"
-          >
-            <button
-              type="submit"
-              class="btn"
-              style="background-color: #ff925c; color: #1d1e18"
+          <button class="btn-small" style="background-color: #ca5310">
+            <a
+              href="{{ url_for('mark_done', task_id=task._id) }}"
+              style="color: #fff"
+              >Done</a
             >
-              Done
-            </button>
-          </form>
+          </button>
         </td>
         <td>
-          <form
-            method="GET"
-            action="{{ url_for('edit_task', task_id=task._id) }}"
-          >
-            <button
-              type="submit"
-              class="btn"
-              style="background-color: #ff925c; color: #1d1e18"
+          <!-- edit task button -->
+          <button class="btn-small" style="background-color: #ca5310">
+            <a
+              href="{{ url_for('edit_task', task_id=task._id) }}"
+              style="color: #fff"
+              >Edit</a
             >
-              Edit
-            </button>
-          </form>
+          </button>
         </td>
       </tr>
       {% endfor %}
