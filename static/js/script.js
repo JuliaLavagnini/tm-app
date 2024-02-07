@@ -131,5 +131,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let greetingText = document.getElementById("greeting");
     greetingText.innerHTML = greeting + ", Zentro team!";
-    console.log(greeting);
+    console.log(currentTime);
 });
