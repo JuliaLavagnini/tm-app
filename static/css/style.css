@@ -44,11 +44,10 @@ th,
 td {
     padding: 8px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
 }
 
 th {
-    background-color: #f2f2f2;
+    border-bottom: 1px solid #1D1E18;
 }
 
 .boxes {
@@ -92,4 +91,11 @@ th {
 .flashes {
     font-weight: 600;
     font-size: 26px;
+}
+
+.container-1 {
+    width: 100%;
+    max-width: 1400px;
+    padding: 80px 40px;
+    margin: 0 auto;
 }
