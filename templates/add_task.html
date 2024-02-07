@@ -66,16 +66,14 @@
     </div>
     <!-- team selector -->
     <div class="row">
-      <div class="row">
-        <div class="input-field col s12">
-          <select class="validate" name="team_name" id="team_name" required>
-            <option value="" disabled selected>Select the team</option>
-            {% for team in teams %}
-            <option value="{{team.name}}">{{team.name}}</option>
-            {% endfor %}
-          </select>
-          <label for="team_name">This task is for who?</label>
-        </div>
+      <div class="input-field col s12">
+        <select class="validate" name="team_name" id="team_name" required>
+          <option value="" disabled selected>Select the team</option>
+          {% for team in teams %}
+          <option value="{{team.name}}">{{team.name}}</option>
+          {% endfor %}
+        </select>
+        <label for="team_name">This task is for who?</label>
       </div>
     </div>
     <!-- submit button -->

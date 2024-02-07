@@ -53,6 +53,7 @@ th {
 .boxes {
     display: flex;
     justify-content: center;
+    padding: 0 100px;
 }
 
 .boxes .s6 {
@@ -96,7 +97,7 @@ th {
 .container-1 {
     width: 100%;
     max-width: 1400px;
-    padding: 80px 40px;
+    padding: 80px 30px;
     margin: 0 auto;
 }
 
