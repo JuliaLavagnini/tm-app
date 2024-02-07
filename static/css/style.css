@@ -110,6 +110,7 @@ span {
     margin-top: 7px;
 }
 
-.profile {
+.profile,
+.members {
     font-size: 20px;
 }

@@ -98,7 +98,7 @@ def sign_in():
                 return redirect(url_for("sign_in"))
         else:
             # username doesn't exist
-            flash("Incorrect Username and/or Password")
+            flash("Username not found, please register")
             return redirect(url_for("sign_in"))
     return render_template("sign_in.html")
 
@@ -123,15 +123,16 @@ def profile(username):
             if team_data is not None:
                 team_name = team_data["name"]
 
-            # Fetch team members with the same team_name excluding the current user
+            # Fetch all team members with the same team_id, excluding the current user
             team_members = mongo.db.users.find(
-                {"team_name": team_name, "username": {"$ne": username}})
+                {"team_id": user_data["team_id"], "username": {"$ne": username}})
 
             return render_template("profile.html", username=username,
                                    user_tasks=user_tasks,
                                    team_members=team_members,
                                    team=team_name,
                                    user_data=user_data)
+
         else:
             # User data not found, handle error
             return "User data not found", 404

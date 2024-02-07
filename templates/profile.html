@@ -44,9 +44,12 @@
     </tbody>
   </table>
   <h2>Meet Your Team - <span>{{ team }}</span></h2>
-  <ul>
+  <ul class="members">
     {% for member in team_members %}
-    <li>{{ member.username }}|</li>
+    <li>
+      {{ member.username }} ({{ member.team_position }}) - Email: {{
+      member.email }}
+    </li>
     {% endfor %}
   </ul>
 </div>
