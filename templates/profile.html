@@ -37,7 +37,7 @@
         <td>{{ task.task_name }}</td>
         <td>{{ task.description }}</td>
         <td>{{ task.due }}</td>
-        <td>{{ task.team }}</td>
+        <td>{{ task.team_name }}</td>
         <td>{{ task.priority }}</td>
       </tr>
       {% endfor %}
@@ -46,7 +46,7 @@
   <h2>Meet Your Team - <span>{{ team }}</span></h2>
   <ul>
     {% for member in team_members %}
-    <li>{{ member.username }}</li>
+    <li>{{ member.username }}|</li>
     {% endfor %}
   </ul>
 </div>

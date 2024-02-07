@@ -154,15 +154,16 @@ def add_task():
             "task_name": request.form.get("task_name"),
             "description": request.form.get("description"),
             "due": request.form.get("due"),
-            "team_name": request.form.get("team_name"),
             "priority": request.form.get("priority_degree"),
+            "team_name": request.form.get("team_name"),
             "created_by": session["user"]
         }
+
         mongo.db.tasks.insert_one(task)
-        return redirect(url_for("profile"))
+        return redirect(url_for("profile", username=session["user"]))
 
     priorities = mongo.db.priorities.find().sort("priority_degree", 1)
-    teams = mongo.db.teams.find().sort("team_name", 1)
+    teams = mongo.db.teams.find().sort("name", 1)
     return render_template("add_task.html", priorities=priorities, teams=teams)
 
 
