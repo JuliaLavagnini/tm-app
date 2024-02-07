@@ -1,7 +1,6 @@
 /*
     jQuery for MaterializeCSS initialization
 */
-
 $(document).ready(function () {
     $(".sidenav").sidenav({ edge: "right" });
     $(".collapsible").collapsible();
@@ -45,14 +44,9 @@ $(document).ready(function () {
     }
 });
 
-
-
-
-
 /*
     vanilla JavaScript for MaterializeCSS initialization
 */
-
 document.addEventListener('DOMContentLoaded', function () {
     let sidenavs = document.querySelectorAll(".sidenav");
     let sidenavsInstance = M.Sidenav.init(sidenavs, { edge: "right" });
@@ -112,6 +106,30 @@ document.addEventListener('DOMContentLoaded', function () {
 /*
     Date to profile.html file
 */
-let todayDate = moment().format("dddd D MMMM YYYY");
-let dateElement = document.querySelector("#date");
-dateElement.innerHTML = todayDate;
+document.addEventListener("DOMContentLoaded", function () {
+    let todayDate = moment().format("dddd D MMMM YYYY");
+    let dateElement = document.querySelector("#date");
+    dateElement.innerHTML = todayDate;
+    console.log(todayDate);
+});
+
+/*
+    Gretting based on time to home.html file
+*/
+document.addEventListener("DOMContentLoaded", function () {
+    let currentTime = moment(); // Get the current hour as a number
+    let greeting;
+
+    if (currentTime.hour() < 12) {
+        greeting = "Good morning";
+    }
+    else if (currentTime.hour() < 18) {
+        greeting = "Good afternoon";
+    } else {
+        greeting = "Good evening";
+    };
+
+    let greetingText = document.getElementById("greeting");
+    greetingText.innerHTML = greeting + ", Zentro team!";
+    console.log(greeting);
+});

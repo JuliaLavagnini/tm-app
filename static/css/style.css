@@ -4,8 +4,12 @@ body {
     color: #1D1E18;
 }
 
+h1 {
+    font-weight: 900;
+}
+
 h2 {
-    font-weight: 800;
+    font-weight: 700;
 }
 
 header {
@@ -97,7 +101,7 @@ th {
 .container-1 {
     width: 100%;
     max-width: 1400px;
-    padding: 80px 30px;
+    padding: 20px 30px;
     margin: 0 auto;
 }
 
