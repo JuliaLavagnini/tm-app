@@ -28,9 +28,22 @@ def show_tasks():
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
-    query = request.form.get("query")
-    tasks = list(mongo.db.tasks.find({"$text": {"$search": query}}))
-    return render_template("home.html", tasks=tasks)
+    if request.method == "POST":
+        query = request.form.get("query")
+        if query:
+            tasks = list(mongo.db.tasks.find({"$or": [
+                {"task_name": {"$regex": query, "$options": "i"}},
+                {"description": {"$regex": query, "$options": "i"}},
+                {"team_name": {"$regex": query, "$options": "i"}},
+                {"created_by": {"$regex": query, "$options": "i"}},
+                {"priority": {"$regex": query, "$options": "i"}},
+                {"due": {"$regex": query, "$options": "i"}}]}))
+            return render_template("home.html", tasks=tasks)
+        else:
+            flash("Please enter a valid search query.", "error")
+            return redirect(url_for("show_tasks"))
+    else:
+        return redirect(url_for("show_tasks"))
 
 
 @app.route("/register", methods=["GET", "POST"])
