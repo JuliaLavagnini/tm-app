@@ -1,13 +1,15 @@
-# JL Task Management App
+# Task Management App
 
-![JL Task Management App shown on a range of devices](assets/documentation-media/...)
+This task management app is created for a (fictional) web design company called Zentro. It is a system for help employees organise their tasks. It includes sign in/sign up system, visualisation of all tasks and fully control on user sides. 
 
-[View JL Task Managment App on Netlify](https://jltaskmanagement.netlify.app/)
+![Task Management App shown on a range of devices](<static/documentation-media/Screenshot 2024-02-12 224638.png>)
 
-![GitHub last commit](https://img.shields.io/github/last-commit/JuliaLavagnini/task-managment-app?color=red)
-![GitHub contributors](https://img.shields.io/github/contributors/JuliaLavagnini/task-managment-app?color=orange)
-![GitHub language count](https://img.shields.io/github/languages/count/JuliaLavagnini/task-managment-app?color=yellow)
-![GitHub top language](https://img.shields.io/github/languages/top/JuliaLavagnini/Stask-managment-app?color=green)
+[View Task Managment App on Heroku](https://tm-app-project-526d2d49fda5.herokuapp.com/)
+
+![GitHub last commit](https://img.shields.io/github/last-commit/JuliaLavagnini/tm-app?color=red)
+![GitHub contributors](https://img.shields.io/github/contributors/JuliaLavagnini/tm-app?color=orange)
+![GitHub language count](https://img.shields.io/github/languages/count/JuliaLavagnini/tm-app?color=yellow)
+![GitHub top language](https://img.shields.io/github/languages/top/JuliaLavagnini/tm-app?color=green)
 
 ## CONTENTS
 
@@ -49,3 +51,6 @@
   * [Code Used](#Code-Used)
   * [Content](#Content)
   * [Media](#Media)
+
+---
+
