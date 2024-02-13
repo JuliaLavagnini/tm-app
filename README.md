@@ -1,6 +1,6 @@
 # Task Management App
 
-This task management app is created for a (fictional) web design company called Zentro. It is a system for help employees organise their tasks. It includes sign in/sign up system, visualisation of all tasks and fully control on user sides. 
+Welcome to the Zentro Task Management App documentation! This document serves as a comprehensive guide to understanding and utilizing the task management system developed specifically for Zentro, a fictional web design company. The Zentro Task Management App is designed to streamline task creation, management, and collaboration within the organization, ultimately enhancing productivity and efficiency.
 
 ![Task Management App shown on a range of devices](<static/documentation-media/Screenshot 2024-02-12 224638.png>)
 
@@ -100,3 +100,34 @@ The project will deliver a fully functional web-based task management applicatio
 * Deployment to a web server or cloud platform for production use.
 
 ---
+
+## Design
+
+**Colour Scheme**
+
+![Color scheme](static/documentation-media/tm-app-colours.png)
+Colours selected on coolors website.
+
+**Typography**
+
+Google Fonts was used for the following font with different font weight:
+
+* Urbanist sans-serif is used on the whole website.
+[Google fonts](https://fonts.google.com/specimen/Urbanist)
+
+**Imagery**
+
+All media content was hold all rights reserved, as developer creation (own by Julia Lavagnini)
+
+**Wireframes**
+
+![Wireframes of all pages](<static/documentation-media/task management web app.png>)
+
+**Accessibility**
+
+* Responsive design ensures that our app adapts seamlessly to different screen sizes and devices, providing a consistent user experience.
+* The app prioritizes a clear and intuitive layout to ensure ease of navigation for all users.
+* Carefully selection of colours with high contrast to improve readability and usability.
+
+---
+
