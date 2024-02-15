@@ -52,3 +52,13 @@ I used Lighthouse within the Chrome Developer Tools to allow me to test the perf
 [Lighthouse Testing for Desktop](<static/documentation-media/Screenshot 2024-02-15 015432.png>)
 
 ---
+
+## Solved Bugs
+
+|**Bug**|**Resolution**|
+|-----|-----|
+|Log in/Log out pages not working, dening access| Problem accur due to fault of codeanywhere platform. Changes Log in to Sign in and Log out to Sign out.
+|Team name and members not displaying on profile| Work with database to catch the team name id and translate to its name and find all users with the same team id/name |
+|Team name repeated at the team database field| Check if the name alreday exist on the database if so put the same id otherwise insert wth a new id|
+|complete tasks not moving into completed tasks table| Create a completed_tasks field on MongoDB and improve mark_done function to move from tasks field to completed tasks field. Locating the task id to do it and use complete tasks table to display completed_tasks field. |
+
