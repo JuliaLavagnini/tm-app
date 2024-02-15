@@ -33,7 +33,7 @@
 |I want to be able to log in to my account using my credentials, so that I can access project tasks and collaborate with my team.|User able to login, access its own account, add, edit, view and mark as done the tasks |![User login](static/documentation-media/ezgif-7-374bfcee1f.gif)|
 |I want to be able to create new design tasks, providing details such as project/client name, project description, deadline, priority and responsibility so that I can manage my design workload effectively.|User able to add and edit tasks deatils|![Add tasks](static/documentation-media/2.gif)![Edit tasks](static/documentation-media/3.gif)|
 |I want to be able to view a dashboard showing all tasks assigned to my team, categorized by project or priority, so that I can monitor team workload and allocate resources effectively.|All tasks displayed of main page|![Dashboard tasks](<static/documentation-media/Screenshot 2024-02-15 021621.png>)|
-|I want to be able to view the profiles of team members, including their contact information, role, and assigned tasks, so that I can communicate effectively and provide support as needed.|All members details as display on user profile if they have the same team|![User profile](static/documentation-media/1.png)|
+|I want to be able to view the profiles of team members, including their contact information, role, and assigned tasks, so that I can communicate effectively and provide support as needed.|All members details as display on user profile if they have the same team|![User profile](<static/documentation-media/Screenshot 2024-02-15 024259.png>)|
 
 ---
 
