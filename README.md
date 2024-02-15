@@ -114,3 +114,15 @@ The challenges I enconter in this project was all related to the IDLE I used to 
 In the future, features as adding files and media would benefit the users to a better workflow. Also, when creating tasks the users could specify the project/client would be more efficient. Finaly, Team leads having access to its team tasks is good to meet and communication between them. 
 
 ---
+
+## Deployment 
+
+To make the deployment Heroku hosting was used. First set a Procfile to specify the commands on how start and run the application. 
+
+Finally, on Heroku website, create new app, select the GitHub repository as Deployment method, go to settings and config the vars, go back to deploy section and select 'Enable Automatic Deploys' then create the app.
+
+* To Folk this repository, click on the Folk button in the top right corner. 
+
+* To clone, click to 'Code' green button (top right corner) and select whether you would like to clone with HTTPS, SSH or GitHub CLI and copy the link shown. Open the terminal in your code editor and change the current working directory to the location you want to use for the cloned directory. Type 'git clone' into the terminal and then paste the link you copied.
+
+---
