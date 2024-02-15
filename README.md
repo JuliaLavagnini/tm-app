@@ -86,3 +86,31 @@ All media content was hold all rights reserved, as developer creation (own by Ju
 
 ---
 
+## Technologies
+
+- `Styled Components` 
+- `Flask`
+- `MongoDB`
+- `Python`
+- `JavaScript`
+
+**Frameworks, Libraries & Programs Used**
+
+- Figma - Used to create wireframes.
+- Git - For version control.
+- Github - To save and store the files for the website.
+- Materialize CSS - The framework for the website. Code for the navigation bar, grid, and essential elements were used and modified. Additional CSS styling was also implemented in style.css.
+- Google Fonts - To import the fonts used on the website.
+- Font Awesome - For the simple iconography on the navbar.
+
+**Progress**
+
+I used the project walkthrough template task manager and adapt to my requirements. The user profile has all neccessary action to makes functional and organised to use. 
+
+The challenges I enconter in this project was all related to the IDLE I used to work because I found much more difficult to work with platform as VS so I used Codeanywhere, it cause a few proplems. 
+
+**What can be improved?**
+
+In the future, features as adding files and media would benefit the users to a better workflow. Also, when creating tasks the users could specify the project/client would be more efficient. Finaly, Team leads having access to its team tasks is good to meet and communication between them. 
+
+---
