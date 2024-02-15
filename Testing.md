@@ -36,3 +36,19 @@
 |I want to be able to view the profiles of team members, including their contact information, role, and assigned tasks, so that I can communicate effectively and provide support as needed.|All members details as display on user profile if they have the same team|![User profile](static/documentation-media/1.png)|
 
 ---
+
+## Compliant Code
+
+### W3C Validator
+
+The W3C validator was used to validate CSS in the style.css file and it all passed. Now with HTML files it presents error because of the flask code presents on them.
+
+* [CSS Validator](<static/documentation-media/Screenshot 2024-02-15 014716.png>)
+
+### Lighthouse
+
+I used Lighthouse within the Chrome Developer Tools to allow me to test the performance, accessibility, best practices and SEO of the website.
+
+[Lighthouse Testing for Desktop](<static/documentation-media/Screenshot 2024-02-15 015432.png>)
+
+---
