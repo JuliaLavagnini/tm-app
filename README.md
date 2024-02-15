@@ -109,6 +109,8 @@ I used the project walkthrough template task manager and adapt to my requirement
 
 The challenges I enconter in this project was all related to the IDLE I used to work because I found much more difficult to work with platform as VS so I used Codeanywhere, it cause a few proplems. 
 
+On MongoDB I create different field to address each category correctly. As team is stored on its id form put be easy to cath all users with the same id and only one team name is stored on duplication. I also use JavaScript to display the current date.
+
 **What can be improved?**
 
 In the future, features as adding files and media would benefit the users to a better workflow. Also, when creating tasks the users could specify the project/client would be more efficient. Finaly, Team leads having access to its team tasks is good to meet and communication between them. 
