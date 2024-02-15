@@ -43,7 +43,7 @@
 
 The W3C validator was used to validate CSS in the style.css file and it all passed. Now with HTML files it presents error because of the flask code presents on them.
 
-* [CSS Validator](<static/documentation-media/Screenshot 2024-02-15 014716.png>)
+* ![CSS Validator](<static/documentation-media/Screenshot 2024-02-15 014716.png>)
 
 ### Lighthouse
 
