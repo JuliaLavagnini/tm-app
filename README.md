@@ -126,3 +126,11 @@ Finally, on Heroku website, create new app, select the GitHub repository as Depl
 * To clone, click to 'Code' green button (top right corner) and select whether you would like to clone with HTTPS, SSH or GitHub CLI and copy the link shown. Open the terminal in your code editor and change the current working directory to the location you want to use for the cloned directory. Type 'git clone' into the terminal and then paste the link you copied.
 
 ---
+
+## Credits
+
+The template I took from the Code Institute walkthrought project 3 and make some changes. I also use their user authentication specially to validate the forms.
+
+My home.html these lines {{ tasks|selectattr('task_name')|list|length }} and {{ tasks|selectattr('priority','equalto','High')|list|length }} where I took the reference from a [Stackoverflow page](https://stackoverflow.com/questions/40006617/get-count-of-list-items-that-meet-a-condition-with-jinja2). It simple calculate the number of tasks by counting how many of them have a non-empty 'task-name' attribute and the other calculates the number with a priority equal to 'High'.
+
+I also use components of Materialise CSS as the forms, search engine and buttons but gave modifications to suit th project needs. 
