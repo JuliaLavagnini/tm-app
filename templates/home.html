@@ -1,21 +1,22 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} <!-- Extend the base template -->
 
-<div class="container-1">
-  <h1 id="greeting"></h1>
-  <div class="row boxes">
-    <div class="col s6 z-depth-2">
-      <p>Total Upgoing Tasks</p>
-      <p>{{ tasks|selectattr('task_name')|list|length }}</p>
+{% block content %} <!-- Define content block -->
+<div class="container-1"> <!-- Container for content -->
+  <h1 id="greeting"></h1> <!-- Heading for greeting -->
+  <div class="row boxes"> <!-- Row for boxes -->
+    <div class="col s6 z-depth-2"> <!-- Column for total upgoing tasks -->
+      <p>Total Upgoing Tasks</p> <!-- Text for total upgoing tasks -->
+      <p>{{ tasks|selectattr('task_name')|list|length }}</p> <!-- Display total upgoing tasks -->
     </div>
-    <div class="col s6 z-depth-2">
-      <p>High Priority Tasks</p>
-      <p>{{ tasks|selectattr('priority','equalto','High')|list|length }}</p>
+    <div class="col s6 z-depth-2"> <!-- Column for high priority tasks -->
+      <p>High Priority Tasks</p> <!-- Text for high priority tasks -->
+      <p>{{ tasks|selectattr('priority','equalto','High')|list|length }}</p> <!-- Display high priority tasks -->
     </div>
   </div>
-  <div class="row">
-    <form action="{{ url_for('search') }}" method="post" class="col s12">
-      <div class="row valign-wrapper center-align">
-        <div class="input-field col s12 m8">
+  <div class="row"> <!-- Row for search form -->
+    <form action="{{ url_for('search') }}" method="post" class="col s12"> <!-- Form for searching tasks -->
+      <div class="row valign-wrapper center-align"> <!-- Row for input field and buttons -->
+        <div class="input-field col s12 m8"> <!-- Column for input field -->
           <input
             type="text"
             name="query"
@@ -24,71 +25,71 @@
             class="validate"
             required
           />
-          <label for="query">Search Tasks</label>
+          <label for="query">Search Tasks</label> <!-- Label for input field -->
         </div>
-        <div class="col s12 m4">
+        <div class="col s12 m4"> <!-- Column for buttons -->
           <a
             href="{{ url_for('show_tasks') }}"
             class="btn"
             style="background-color: #ff925c; color: #1d1e18"
             >Reset</a
-          >
+          > <!-- Reset button -->
           <button
             type="submit"
             class="btn"
             style="background-color: #ff925c; color: #1d1e18"
           >
-            Search
+            Search <!-- Submit button for search -->
           </button>
         </div>
       </div>
     </form>
   </div>
-  <h2>Upcoming Tasks</h2>
-  <table>
-    <thead>
+  <h2>Upcoming Tasks</h2> <!-- Heading for upcoming tasks -->
+  <table> <!-- Table for displaying upcoming tasks -->
+    <thead> <!-- Table header -->
       <tr>
-        <th>Task</th>
-        <th>Description</th>
-        <th>Due</th>
-        <th>Team Resposible</th>
-        <th>Priority</th>
-        <th>Assigned by</th>
+        <th>Task</th> <!-- Column for task name -->
+        <th>Description</th> <!-- Column for task description -->
+        <th>Due</th> <!-- Column for due date -->
+        <th>Team Responsible</th> <!-- Column for team responsible -->
+        <th>Priority</th> <!-- Column for task priority -->
+        <th>Assigned by</th> <!-- Column for assigned by -->
       </tr>
     </thead>
-    <tbody>
-      {% for task in tasks %}
+    <tbody> <!-- Table body -->
+      {% for task in tasks %} <!-- Loop through tasks -->
       <tr>
-        <td>{{ task.task_name }}</td>
-        <td>{{ task.description }}</td>
-        <td>{{ task.due }}</td>
-        <td>{{ task.team_name }}</td>
-        <td>{{ task.priority }}</td>
-        <td>{{ task.created_by }}</td>
+        <td>{{ task.task_name }}</td> <!-- Display task name -->
+        <td>{{ task.description }}</td> <!-- Display task description -->
+        <td>{{ task.due }}</td> <!-- Display due date -->
+        <td>{{ task.team_name }}</td> <!-- Display team responsible -->
+        <td>{{ task.priority }}</td> <!-- Display task priority -->
+        <td>{{ task.created_by }}</td> <!-- Display assigned by -->
       </tr>
-      {% endfor %}
+      {% endfor %} <!-- End loop -->
     </tbody>
   </table>
-  <h2>Completed Tasks</h2>
-  <table>
-    <thead>
+  <h2>Completed Tasks</h2> <!-- Heading for completed tasks -->
+  <table> <!-- Table for displaying completed tasks -->
+    <thead> <!-- Table header -->
       <tr>
-        <th>Task Name</th>
-        <th>Description</th>
-        <th>Team Resposible</th>
-        <th>Assigned by</th>
+        <th>Task Name</th> <!-- Column for task name -->
+        <th>Description</th> <!-- Column for task description -->
+        <th>Team Responsible</th> <!-- Column for team responsible -->
+        <th>Assigned by</th> <!-- Column for assigned by -->
       </tr>
     </thead>
-    <tbody>
-      {% for task in done_tasks %}
+    <tbody> <!-- Table body -->
+      {% for task in done_tasks %} <!-- Loop through completed tasks -->
       <tr>
-        <td>{{ task.task_name }}</td>
-        <td>{{ task.description }}</td>
-        <td>{{ task.team_name}}</td>
-        <td>{{ task.created_by}}</td>
+        <td>{{ task.task_name }}</td> <!-- Display task name -->
+        <td>{{ task.description }}</td> <!-- Display task description -->
+        <td>{{ task.team_name}}</td> <!-- Display team responsible -->
+        <td>{{ task.created_by}}</td> <!-- Display assigned by -->
       </tr>
-      {% endfor %}
+      {% endfor %} <!-- End loop -->
     </tbody>
   </table>
 </div>
-{% endblock %}
+{% endblock %} <!-- End content block -->

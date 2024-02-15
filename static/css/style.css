@@ -1,113 +1,132 @@
+/* Define the font family and default styles for the body */
 body {
     font-family: 'Urbanist', sans-serif;
-    background-color: #FFF8F0;
-    color: #1D1E18;
+    background-color: #FFF8F0; /* Set background color */
+    color: #1D1E18; /* Set text color */
 }
 
+/* Styles for heading level 1 */
 h1 {
-    font-weight: 900;
+    font-weight: 900; /* Set font weight */
 }
 
+/* Styles for heading level 2 */
 h2 {
-    font-weight: 700;
+    font-weight: 700; /* Set font weight */
 }
 
+/* Styles for header element */
 header {
-    margin: 0 20px;
+    margin: 0 20px; /* Set margin */
 }
 
+/* Styles for navigation links */
 nav ul a {
-    color: #1D1E18;
+    color: #1D1E18; /* Set link color */
 }
 
+/* Styles for the brand logo */
 .brand-logo img {
-    border-radius: 100px;
-    width: 90px;
-    margin-left: 20px;
+    border-radius: 100px; /* Apply border radius */
+    width: 90px; /* Set width */
+    margin-left: 20px; /* Set margin */
 }
 
+/* Styles for the collapsible header */
 .collapsible-header .col strong {
-    margin: 5px;
-    line-height: 42px;
+    margin: 5px; /* Set margin */
+    line-height: 42px; /* Set line height */
 }
 
+/* Styles for tables */
 table {
-    width: 100%;
-    border-collapse: collapse;
+    width: 100%; /* Set width */
+    border-collapse: collapse; /* Collapse border */
 }
 
+/* Styles for table headers and cells */
 th,
 td {
-    padding: 8px;
-    text-align: left;
+    padding: 8px; /* Set padding */
+    text-align: left; /* Align text to left */
 }
 
+/* Styles for table headers */
 th {
-    border-bottom: 1px solid #1D1E18;
+    border-bottom: 1px solid #1D1E18; /* Add bottom border */
 }
 
+/* Styles for boxes */
 .boxes {
-    display: flex;
-    justify-content: center;
-    padding: 0 100px;
+    display: flex; /* Use flexbox */
+    justify-content: center; /* Center content horizontally */
+    padding: 0 100px; /* Add padding */
 }
 
+/* Styles for box elements */
 .boxes .s6 {
-    border-radius: 25px;
-    border: 1px solid #ca5310;
-    text-align: center;
-    font-size: 30px;
-    padding: 25px 35px;
-    margin: 15px 100px;
-    background-color: #CA5310;
-    color: #FFF8F0;
+    border-radius: 25px; /* Apply border radius */
+    border: 1px solid #ca5310; /* Set border */
+    text-align: center; /* Align text to center */
+    font-size: 30px; /* Set font size */
+    padding: 25px 35px; /* Add padding */
+    margin: 15px 100px; /* Add margin */
+    background-color: #CA5310; /* Set background color */
+    color: #FFF8F0; /* Set text color */
 }
 
+/* Styles for paragraph elements inside boxes */
 .boxes p {
-    font-size: 36px;
-    font-weight: 700;
+    font-size: 36px; /* Set font size */
+    font-weight: 700; /* Set font weight */
 }
 
+/* Styles for main container */
 .container {
-    width: 628px;
-    background-color: #fff;
-    padding: 20px;
-    margin: 0 auto;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    border-radius: 7px;
+    width: 628px; /* Set width */
+    background-color: #fff; /* Set background color */
+    padding: 20px; /* Add padding */
+    margin: 0 auto; /* Center container horizontally */
+    margin-top: 50px; /* Add top margin */
+    margin-bottom: 50px; /* Add bottom margin */
+    border-radius: 7px; /* Apply border radius */
     box-shadow:
         2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
         6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
         12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
         22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
         41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
-        100px 100px 80px rgba(0, 0, 0, 0.07)
+        100px 100px 80px rgba(0, 0, 0, 0.07); /* Add box shadow */
 }
 
+/* Styles for flash messages */
 .flashes {
-    font-weight: 600;
-    font-size: 26px;
+    font-weight: 600; /* Set font weight */
+    font-size: 26px; /* Set font size */
 }
 
+/* Styles for container-1 */
 .container-1 {
-    width: 100%;
-    max-width: 1400px;
-    padding: 20px 30px;
-    margin: 0 auto;
+    width: 100%; /* Set width */
+    max-width: 1400px; /* Set maximum width */
+    padding: 20px 30px; /* Add padding */
+    margin: 0 auto; /* Center container horizontally */
 }
 
+/* Styles for spans */
 span {
-    font-weight: 400;
+    font-weight: 400; /* Set font weight */
 }
 
+/* Styles for profile section */
 .profile .date,
 .profile h2 {
-    margin-bottom: 5px;
-    margin-top: 7px;
+    margin-bottom: 5px; /* Add bottom margin */
+    margin-top: 7px; /* Add top margin */
 }
 
+/* Styles for profile and members */
 .profile,
 .members {
-    font-size: 20px;
+    font-size: 20px; /* Set font size */
 }
