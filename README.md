@@ -127,6 +127,10 @@ Finally, on Heroku website, create new app, select the GitHub repository as Depl
 
 * To clone, click to 'Code' green button (top right corner) and select whether you would like to clone with HTTPS, SSH or GitHub CLI and copy the link shown. Open the terminal in your code editor and change the current working directory to the location you want to use for the cloned directory. Type 'git clone' into the terminal and then paste the link you copied.
 
+## Debug Mode in Production
+
+In production versions of the application, it's crucial to set the debug mode to false. Debug mode provides detailed error messages and auto-reloading, which are helpful during development but can pose security risks in production. By turning off debug mode (debug=False), Flask disables the interactive debugger and reloader, enhancing performance and security in the production environment.
+
 ---
 
 ## Credits
